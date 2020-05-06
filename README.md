@@ -21,7 +21,7 @@
 
 鼠标控制= strokens-plus + ahk + vim-like key
 
-## 使用：
+## 安装：
 1. cd /xxxxx/你的软件安装目录。git clone https://github.com/fanlushuai/windows-desktop-switcher.git
 2. 安装[ahk](https://www.autohotkey.com/)
 3. 安装[strokens Plus](https://www.strokesplus.com/downloads/)
@@ -30,3 +30,20 @@
 - Create a shortcut to the desktop_switcher.ahk file here
 5. 启动strokens Plus导入本项目的strokens plus配置文件。strokens-plus-config.spactions
 
+## 使用：
+快捷键：
+- ctrl + win + [j k l i] 切换到 左下右上 虚拟桌面，同时对应 1234 虚拟桌面
+
+鼠标手势：
+- ← ↓ → ↑ 对应到切换到  左下右上 虚拟桌面
+
+同时支持快捷键固定：
+- capslock & t::OnTogglePinOnTopPress()
+- capslock & a::OnTogglePinAppPress()
+- capslock & w::OnTogglePinWindowPress()
+
+快捷键传输此应用到指定虚拟桌面：
+- CapsLock & s::MoveCurrentWindowToDesktop(1)
+- CapsLock & d::MoveCurrentWindowToDesktop(2)
+- CapsLock & f::MoveCurrentWindowToDesktop(3)
+- CapsLock & e::MoveCurrentWindowToDesktop(4)
