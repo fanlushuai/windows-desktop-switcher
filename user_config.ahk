@@ -114,6 +114,11 @@ CapsLock & o::MoveCurrentWindowToDesktop(9)
 ; ^#Numpad8::MoveCurrentWindowToDesktop(8)
 ; ^#Numpad9::MoveCurrentWindowToDesktop(9)
 
+; pin app on top. app window 
+capslock & g::OnTogglePinOnTopPress()
+capslock & h::OnTogglePinAppPress()
+capslock & j::OnTogglePinWindowPress()
+
 ; Vim-like key config . If use this, suggest config DesktopMiniCount=4, DesktopInitSwitchTarget as well
 ^#j::switchDesktopByNumber(1)
 ^#k::switchDesktopByNumber(2)

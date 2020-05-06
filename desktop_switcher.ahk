@@ -17,6 +17,13 @@ hVirtualDesktopAccessor := DllCall("LoadLibrary", "Str", A_ScriptDir . "\Virtual
 global IsWindowOnDesktopNumberProc := DllCall("GetProcAddress", Ptr, hVirtualDesktopAccessor, AStr, "IsWindowOnDesktopNumber", "Ptr")
 global MoveWindowToDesktopNumberProc := DllCall("GetProcAddress", Ptr, hVirtualDesktopAccessor, AStr, "MoveWindowToDesktopNumber", "Ptr")
 
+global IsPinnedWindowProc := DllCall("GetProcAddress", Ptr, hVirtualDesktopAccessor, AStr, "IsPinnedWindow", "Ptr")
+global PinWindowProc := DllCall("GetProcAddress", Ptr, hVirtualDesktopAccessor, AStr, "PinWindow", "Ptr")
+global UnPinWindowProc := DllCall("GetProcAddress", Ptr, hVirtualDesktopAccessor, AStr, "UnPinWindow", "Ptr")
+global IsPinnedAppProc := DllCall("GetProcAddress", Ptr, hVirtualDesktopAccessor, AStr, "IsPinnedApp", "Ptr")
+global PinAppProc := DllCall("GetProcAddress", Ptr, hVirtualDesktopAccessor, AStr, "PinApp", "Ptr")
+global UnPinAppProc := DllCall("GetProcAddress", Ptr, hVirtualDesktopAccessor, AStr, "UnPinApp", "Ptr")
+
 ; Main
 SetKeyDelay, 75
 mapDesktopsFromRegistry()
@@ -245,4 +252,66 @@ initDesktopSwitchTargetNumber()
           _switchDesktopToTarget(DesktopInitSwitchTarget > DesktopCount ? DesktopCount : DesktopInitSwitchTarget)
           OutputDebug, [initTarget] DesktopInitSwitchTarget: %DesktopInitSwitchTarget% desktops: %DesktopCount% current: %CurrentDesktop%
     }
+}
+
+
+
+_GetCurrentWindowID() {
+    WinGet, activeHwnd, ID, A
+    return activeHwnd
+}
+
+OnTogglePinOnTopPress() {
+	Winset, Alwaysontop, , A
+}
+
+OnTogglePinWindowPress() {
+    windowID := _GetCurrentWindowID()
+    if (_GetIsWindowPinned(windowID)) {
+        _UnpinWindow(windowID)
+    }
+    else {
+        _PinWindow(windowID)
+    }
+}
+
+OnTogglePinAppPress() {
+    windowID := _GetCurrentWindowID()
+    if (_GetIsAppPinned(windowID)) {
+        _UnpinApp(windowID)
+    }
+    else {
+        _PinApp(windowID)
+    }
+}
+
+_CallWindowProc(proc, window:="") {
+    if (window == "") {
+        window := _GetCurrentWindowID()
+    }
+    return DllCall(proc, UInt, window)
+}
+
+_PinWindow(windowID:="") {
+    _CallWindowProc(PinWindowProc, windowID)
+}
+
+_UnpinWindow(windowID:="") {
+    _CallWindowProc(UnpinWindowProc, windowID)
+}
+
+_GetIsWindowPinned(windowID:="") {
+    return _CallWindowProc(IsPinnedWindowProc, windowID)
+}
+
+_PinApp(windowID:="") {
+    _CallWindowProc(PinAppProc, windowID)
+}
+
+_UnpinApp(windowID:="") {
+    _CallWindowProc(UnpinAppProc, windowID)
+}
+
+_GetIsAppPinned(windowID:="") {
+    return _CallWindowProc(IsPinnedAppProc, windowID)
 }
