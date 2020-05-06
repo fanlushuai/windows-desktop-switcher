@@ -9,8 +9,8 @@ DesktopCount := 2        ; Windows starts with 2 desktops at boot
 CurrentDesktop := 1      ; Desktop count is 1-indexed (Microsoft numbers them this way)
 LastOpenedDesktop := 1
 
-DesktopMiniCount := -1   ; keep desktop mini count at script boot.
-DesktopInitSwitchTarget := -1 ; switch desktop to target number at script boot.
+DesktopMiniCount := 4   ; keep desktop mini count at script boot.
+DesktopInitSwitchTarget := 3 ; switch desktop to target number at script boot.
 
 ; DLL
 hVirtualDesktopAccessor := DllCall("LoadLibrary", "Str", A_ScriptDir . "\VirtualDesktopAccessor.dll", "Ptr")
