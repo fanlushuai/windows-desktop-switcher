@@ -120,10 +120,10 @@ capslock & a::OnTogglePinAppPress()
 capslock & w::OnTogglePinWindowPress()
 
 ; MoveCurrentWindowToDesktop
-CapsLock & a::MoveCurrentWindowToDesktop(1)
-CapsLock & s::MoveCurrentWindowToDesktop(2)
-CapsLock & d::MoveCurrentWindowToDesktop(3)
-CapsLock & w::MoveCurrentWindowToDesktop(4)
+CapsLock & s::MoveCurrentWindowToDesktop(1)
+CapsLock & d::MoveCurrentWindowToDesktop(2)
+CapsLock & f::MoveCurrentWindowToDesktop(3)
+CapsLock & e::MoveCurrentWindowToDesktop(4)
 
 ; Vim-like key config . If use this, suggest config DesktopMiniCount=4, DesktopInitSwitchTarget as well
 ^#j::switchDesktopByNumber(1)
