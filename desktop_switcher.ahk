@@ -10,7 +10,7 @@ CurrentDesktop := 1      ; Desktop count is 1-indexed (Microsoft numbers them th
 LastOpenedDesktop := 1
 
 DesktopMiniCount := 4   ; keep desktop mini count at script boot.
-DesktopInitSwitchTarget := 3 ; switch desktop to target number at script boot.
+DesktopInitSwitchTarget := 2 ; switch desktop to target number at script boot.
 
 ; DLL
 hVirtualDesktopAccessor := DllCall("LoadLibrary", "Str", A_ScriptDir . "\VirtualDesktopAccessor.dll", "Ptr")
@@ -255,41 +255,45 @@ initDesktopSwitchTargetNumber()
 }
 
 
-
 _GetCurrentWindowID() {
     WinGet, activeHwnd, ID, A
     return activeHwnd
 }
 
+_GetCurrentWindowTitle() {
+    WinGetTitle, activeHwnd, A
+    return activeHwnd
+}
+
 OnTogglePinOnTopPress() {
+        _notif(_TruncateString(_GetCurrentWindowTitle(), 100), "Toggled 'Pin On Top'")
 	Winset, Alwaysontop, , A
 }
 
 OnTogglePinWindowPress() {
     windowID := _GetCurrentWindowID()
+    windowTitle := _GetCurrentWindowTitle()
     if (_GetIsWindowPinned(windowID)) {
         _UnpinWindow(windowID)
+        _ShowTooltipForUnpinnedWindow(windowTitle)
     }
     else {
         _PinWindow(windowID)
+        _ShowTooltipForPinnedWindow(windowTitle)
     }
 }
 
 OnTogglePinAppPress() {
     windowID := _GetCurrentWindowID()
+    windowTitle := _GetCurrentWindowTitle()
     if (_GetIsAppPinned(windowID)) {
         _UnpinApp(windowID)
+        _ShowTooltipForUnpinnedApp(windowTitle)
     }
     else {
         _PinApp(windowID)
+        _ShowTooltipForPinnedApp(windowTitle)
     }
-}
-
-_CallWindowProc(proc, window:="") {
-    if (window == "") {
-        window := _GetCurrentWindowID()
-    }
-    return DllCall(proc, UInt, window)
 }
 
 _PinWindow(windowID:="") {
@@ -315,3 +319,46 @@ _UnpinApp(windowID:="") {
 _GetIsAppPinned(windowID:="") {
     return _CallWindowProc(IsPinnedAppProc, windowID)
 }
+
+_CallWindowProc(proc, window:="") {
+    if (window == "") {
+        window := _GetCurrentWindowID()
+    }
+    return DllCall(proc, UInt, window)
+}
+
+_notif(txt, title:="") {
+    HideTrayTip()
+    TrayTip, %title%, %txt%, 1
+}
+
+HideTrayTip() {
+    TrayTip  ; Attempt to hide it the normal way.
+    if SubStr(A_OSVersion,1,3) = "10." {
+        Menu Tray, NoIcon
+        Sleep 200  ; It may be necessary to adjust this sleep.
+        Menu Tray, Icon
+    }
+}
+_ShowTooltipForPinnedWindow(windowTitle) {
+    _notif(_TruncateString(windowTitle, 100), "Pinned Window")
+}
+
+_ShowTooltipForUnpinnedWindow(windowTitle) {
+    _notif(_TruncateString(windowTitle, 100), "Unpinned Window")
+}
+
+_ShowTooltipForPinnedApp(windowTitle) {
+    _notif(_TruncateString(windowTitle, 100), "Pinned App")
+}
+
+_ShowTooltipForUnpinnedApp(windowTitle) {
+    _notif(_TruncateString(windowTitle, 100), "Unpinned App")
+}
+
+_TruncateString(string:="", n:=10) {
+    return (StrLen(string) > n ? SubStr(string, 1, n-3) . "..." : string)
+}
+
+
+
