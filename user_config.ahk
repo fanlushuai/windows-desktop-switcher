@@ -138,4 +138,10 @@ CapsLock & d::switchDesktopByNumber(2)
 CapsLock & f::switchDesktopByNumber(3)
 CapsLock & e::switchDesktopByNumber(4)
 
+; Vim-like key config . If use this, suggest config DesktopMiniCount=4, DesktopInitSwitchTarget as well
+^#j::switchDesktopByNumber(1)
+^#k::switchDesktopByNumber(2)
+^#l::switchDesktopByNumber(3)
+^#i::switchDesktopByNumber(4)
+
 
