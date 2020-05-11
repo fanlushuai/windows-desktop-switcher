@@ -119,6 +119,18 @@ capslock & t::OnTogglePinOnTopPress()
 capslock & a::OnTogglePinAppPress()
 capslock & w::OnTogglePinWindowPress()
 
+; The shortcut key of Vim-like ^#[jkli] is not useful for single hand.suggest config DesktopMiniCount=4, DesktopInitSwitchTarget as well
+CapsLock & s::switchDesktopByNumber(1)
+CapsLock & d::switchDesktopByNumber(2)
+CapsLock & f::switchDesktopByNumber(3)
+CapsLock & e::switchDesktopByNumber(4)
+
+; Vim-like key config . If use this, suggest config DesktopMiniCount=4, DesktopInitSwitchTarget as well
+^#j::switchDesktopByNumber(1)
+^#k::switchDesktopByNumber(2)
+^#l::switchDesktopByNumber(3)
+^#i::switchDesktopByNumber(4)
+
 ; MoveCurrentWindowToDesktop
 #if GetKeyState("CapsLock", "P")
 + & s::MoveCurrentWindowToDesktop(1)
@@ -132,16 +144,6 @@ capslock & w::OnTogglePinWindowPress()
 #if GetKeyState("CapsLock", "P")
 + & e::MoveCurrentWindowToDesktop(4)
 
-; The shortcut key of Vim-like ^#[jkli] is not useful for single hand.suggest config DesktopMiniCount=4, DesktopInitSwitchTarget as well
-CapsLock & s::switchDesktopByNumber(1)
-CapsLock & d::switchDesktopByNumber(2)
-CapsLock & f::switchDesktopByNumber(3)
-CapsLock & e::switchDesktopByNumber(4)
 
-; Vim-like key config . If use this, suggest config DesktopMiniCount=4, DesktopInitSwitchTarget as well
-^#j::switchDesktopByNumber(1)
-^#k::switchDesktopByNumber(2)
-^#l::switchDesktopByNumber(3)
-^#i::switchDesktopByNumber(4)
 
 
