@@ -32,18 +32,21 @@
 
 ## 使用：
 快捷键：
-- ctrl + win + [j k l i] 切换到 左下右上 虚拟桌面，同时对应 1234 虚拟桌面
+- ~~ctrl + win + [j k l i] 切换到 左下右上 虚拟桌面，同时对应 1234 虚拟桌面~~
+ctrl+win+[jkli] 对于单手操作是不友好的。所以换成 capslock+[sdfe]。
+
+不使用capslock+[asdw]的原因是，照顾固定的快捷键。使其能通过首字母方便记忆。还有就是使得左手食指位于F键位上。上面是有凸起的。方便定位。
 
 鼠标手势：
 - ← ↓ → ↑ 对应到切换到  左下右上 虚拟桌面
 
 同时支持快捷键固定：
-- capslock & t::OnTogglePinOnTopPress()
-- capslock & a::OnTogglePinAppPress()
-- capslock & w::OnTogglePinWindowPress()
+- capslock + t = OnTogglePinOnTopPress()
+- capslock + a = OnTogglePinAppPress()
+- capslock + w = OnTogglePinWindowPress()
 
 快捷键传输此应用到指定虚拟桌面：
-- CapsLock & s::MoveCurrentWindowToDesktop(1)
-- CapsLock & d::MoveCurrentWindowToDesktop(2)
-- CapsLock & f::MoveCurrentWindowToDesktop(3)
-- CapsLock & e::MoveCurrentWindowToDesktop(4)
+- shift + CapsLock + s = MoveCurrentWindowToDesktop(1)
+- shift + CapsLock + d = MoveCurrentWindowToDesktop(2)
+- shift + CapsLock + f = MoveCurrentWindowToDesktop(3)
+- shift + CapsLock + e = MoveCurrentWindowToDesktop(4)
