@@ -37,6 +37,12 @@ ctrl+win+[jkli] 对于单手操作是不友好的。所以换成 capslock+[sdfe]
 
 不使用capslock+[asdw]的原因是，照顾固定的快捷键。使其能通过首字母方便记忆。还有就是使得左手食指位于F键位上。上面是有凸起的。方便定位。
 
+capslock+[sdfe]、capslock+shift+[sdfe]逻辑主要应用在移动窗口和切换虚拟桌面。
+因为ahk的缘故，对三个组合键，支持的莫名其妙。使用中发现没法让这两种类似的组合键和平相处。
+重新整理思路发现，没有合适的快捷键来替换。
+后来从操作便携性角度分析，发现其实移动窗口对单手有需求，但是切换桌面，对单手并没有那么大需求，因为单手往往处于另一只手在鼠标上，那么其实我们鼠标手势已经映射了桌面切换。
+这样，键盘操作上，我们还是采用^#[jkli]切换桌面，采用caps+[sdfe]来移动窗口，变通思维解决了ahk的问题。还算完美。
+
 鼠标手势：
 - ← ↓ → ↑ 对应到切换到  左下右上 虚拟桌面
 
@@ -46,7 +52,11 @@ ctrl+win+[jkli] 对于单手操作是不友好的。所以换成 capslock+[sdfe]
 - capslock + w = OnTogglePinWindowPress()
 
 快捷键传输此应用到指定虚拟桌面：
-- shift + CapsLock + s = MoveCurrentWindowToDesktop(1)
-- shift + CapsLock + d = MoveCurrentWindowToDesktop(2)
-- shift + CapsLock + f = MoveCurrentWindowToDesktop(3)
-- shift + CapsLock + e = MoveCurrentWindowToDesktop(4)
+- ~~shift + CapsLock + s = MoveCurrentWindowToDesktop(1)~~
+- ~~shift + CapsLock + d = MoveCurrentWindowToDesktop(2)~~
+- ~~shift + CapsLock + f = MoveCurrentWindowToDesktop(3)~~
+- ~~shift + CapsLock + e = MoveCurrentWindowToDesktop(4)~~
+- caps + s = MoveCurrentWindowToDesktop(1)
+- caps + d = MoveCurrentWindowToDesktop(1)
+- caps + f = MoveCurrentWindowToDesktop(1)
+- caps + e = MoveCurrentWindowToDesktop(1)
