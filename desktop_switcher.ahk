@@ -13,7 +13,7 @@ DesktopMiniCount := 4   ; keep desktop mini count at script boot.
 DesktopInitSwitchTarget := 2 ; switch desktop to target number at script boot.
 
 ; desktop associate with background picture
-AutoAssociateBackgroundWithDesktop := false ;
+AutoAssociateBackgroundWithDesktop := false
 BackgroundPicPaths := ["C:\Users\A\Pictures\VDPic\day.jpg", "C:\Users\A\Pictures\VDPic\snow.jpg", "C:\Users\A\Pictures\VDPic\sex.jpg", "C:\Users\A\Pictures\VDPic\cool.jpg"]
 
 ; DLL
