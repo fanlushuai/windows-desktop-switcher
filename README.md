@@ -47,9 +47,9 @@ capslock+[sdfe]、capslock+shift+[sdfe]逻辑主要应用在移动窗口和切�
 - ← ↓ → ↑ 对应到切换到  左下右上 虚拟桌面
 
 同时支持快捷键固定：
-- capslock + t = OnTogglePinOnTopPress()
-- capslock + a = OnTogglePinAppPress()
-- capslock + w = OnTogglePinWindowPress()
+- capslock + t = OnTogglePinOnTopPress()  一直让应用窗口保持在最前。
+- capslock + a = OnTogglePinAppPress()    让应用固定显示在任务栏上。解决的问题：windows的默认情况，下一个桌面的任务栏不能显示其他桌面的打开应用的情况。比如上个桌面打开了chrome，其他桌面无法获知。
+- capslock + w = OnTogglePinWindowPress()  让应用的窗口，随着桌面的切换，总是保持状态。
 
 > 注意，固定的功能带有windows的通知。通过ahk的traytip触发的windows10的 toast通知，包含弹出式的和侧边栏的。
   其中需要注意的是。windows10 focus assist模式（专注模式）下，能导致弹出式失效。如果发现没有弹出框。记得关闭。
