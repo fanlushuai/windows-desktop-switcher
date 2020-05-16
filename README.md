@@ -51,6 +51,9 @@ capslock+[sdfe]、capslock+shift+[sdfe]逻辑主要应用在移动窗口和切�
 - capslock + a = OnTogglePinAppPress()
 - capslock + w = OnTogglePinWindowPress()
 
+> 注意，固定的功能带有windows的通知。通过ahk的traytip触发的windows10的 toast通知，包含弹出式的和侧边栏的。
+  其中需要注意的是。windows10 focus assist模式（专注模式）下，能导致弹出式失效。如果发现没有弹出框。记得关闭。
+
 快捷键传输此应用到指定虚拟桌面：
 - ~~shift + CapsLock + s = MoveCurrentWindowToDesktop(1)~~
 - ~~shift + CapsLock + d = MoveCurrentWindowToDesktop(2)~~
