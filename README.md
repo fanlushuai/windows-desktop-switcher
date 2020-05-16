@@ -63,3 +63,11 @@ capslock+[sdfe]、capslock+shift+[sdfe]逻辑主要应用在移动窗口和切�
 - caps + d = MoveCurrentWindowToDesktop(1)
 - caps + f = MoveCurrentWindowToDesktop(1)
 - caps + e = MoveCurrentWindowToDesktop(1)
+
+背景跟随桌面切换：
+
+当所有桌面没有打开内容的时候，通过快速切换，有时候，不知道自己到底处于哪个桌面。于是采用这种不同桌面可以定义背景的形式，来标记。同时也有一定的美观作用。
+默认功能关闭。
+可以通过
+1. desktop_switcher.ahk:16  AutoAssociateBackgroundWithDesktop 变成true
+2. 配置BackgroundPicPaths,数组的每一位代表了桌面的对应壁纸。
