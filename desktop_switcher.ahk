@@ -329,7 +329,7 @@ _CallWindowProc(proc, window:="") {
 
 _notif(txt, title:="") {
     HideTrayTip()
-    TrayTip, %title%, %txt%, 1
+    TrayTip, %title%, %txt%, 1 , 16
 }
 
 HideTrayTip() {
