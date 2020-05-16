@@ -12,6 +12,10 @@ LastOpenedDesktop := 1
 DesktopMiniCount := 4   ; keep desktop mini count at script boot.
 DesktopInitSwitchTarget := 2 ; switch desktop to target number at script boot.
 
+; desktop associate with background picture
+AutoAssociateBackgroundWithDesktop := false ;
+BackgroundPicPaths := ["C:\Users\A\Pictures\VDPic\day.jpg", "C:\Users\A\Pictures\VDPic\snow.jpg", "C:\Users\A\Pictures\VDPic\sex.jpg", "C:\Users\A\Pictures\VDPic\cool.jpg"]
+
 ; DLL
 hVirtualDesktopAccessor := DllCall("LoadLibrary", "Str", A_ScriptDir . "\VirtualDesktopAccessor.dll", "Ptr")
 global IsWindowOnDesktopNumberProc := DllCall("GetProcAddress", Ptr, hVirtualDesktopAccessor, AStr, "IsWindowOnDesktopNumber", "Ptr")
@@ -137,6 +141,9 @@ _switchDesktopToTarget(targetDesktop)
     ; Makes the WinActivate fix less intrusive
     Sleep, 50
     focusTheForemostWindow(targetDesktop)
+
+    ; associate with background picture
+    changeBackgroundWithDesktopId()
 }
 
 updateGlobalVariables() 
@@ -233,6 +240,15 @@ deleteVirtualDesktop()
     DesktopCount--
     CurrentDesktop--
     OutputDebug, [delete] desktops: %DesktopCount% current: %CurrentDesktop%
+}
+
+changeBackgroundWithDesktopId()
+{
+    global CurrentDesktop, BackgroundPicPaths, AutoAssociateBackgroundWithDesktop
+    filePath := BackgroundPicPaths[CurrentDesktop]
+    if (AutoAssociateBackgroundWithDesktop and filePath and FileExist(filePath)) {
+        DllCall("SystemParametersInfo", UInt, 0x14, UInt, 0, Str, filePath, UInt, 1)
+   }
 }
 
 initDesktopMiniCount()
@@ -359,6 +375,9 @@ _ShowTooltipForUnpinnedApp(windowTitle) {
 _TruncateString(string:="", n:=10) {
     return (StrLen(string) > n ? SubStr(string, 1, n-3) . "..." : string)
 }
+
+
+
 
 
 
