@@ -10,7 +10,7 @@ CurrentDesktop := 1      ; Desktop count is 1-indexed (Microsoft numbers them th
 LastOpenedDesktop := 1
 
 DesktopMiniCount := 4   ; keep desktop mini count at script boot.
-DesktopInitSwitchTarget := 2 ; switch desktop to target number at script boot.
+DesktopBeforeScriptBoot := -1 ; this param will keep desktop location before script run. desktop mini count will create new desktop while switch to new desktop.
 
 ; desktop associate with background picture
 AutoAssociateBackgroundWithDesktop := false
@@ -34,8 +34,6 @@ mapDesktopsFromRegistry()
 OutputDebug, [loading] desktops: %DesktopCount% current: %CurrentDesktop%
 
 initDesktopMiniCount()
-initDesktopSwitchTargetNumber()
-
 #Include %A_ScriptDir%\user_config.ahk
 return
 
@@ -46,7 +44,7 @@ return
 ;
 mapDesktopsFromRegistry() 
 {
-    global CurrentDesktop, DesktopCount
+    global CurrentDesktop, DesktopCount, DesktopBeforeScriptBoot
 
     ; Get the current desktop UUID. Length should be 32 always, but there's no guarantee this couldn't change in a later Windows release so we check.
     IdLength := 32
@@ -85,6 +83,7 @@ mapDesktopsFromRegistry()
         }
         i++
     }
+    DesktopBeforeScriptBoot := CurrentDesktop
 }
 
 ;
@@ -253,23 +252,18 @@ changeBackgroundWithDesktopId()
 
 initDesktopMiniCount()
 {
-	global DeskTopMiniCount, DesktopCount, CurrentDesktop
+	global DeskTopMiniCount, DesktopCount, CurrentDesktop, DesktopBeforeScriptBoot
 	i := DeskTopMiniCount - DesktopCount
+	j := i
  	while (i-- > 0){
  		createVirtualDesktop()
  		OutputDebug, [initCount] DeskTopMiniCount: %DeskTopMiniCount% desktops: %DesktopCount% current: %CurrentDesktop%
  	}
-}
 
-initDesktopSwitchTargetNumber()
-{
-    global DesktopInitSwitchTarget, DesktopCount, CurrentDesktop
-    if(DesktopInitSwitchTarget > 0 && CurrentDesktop != DesktopInitSwitchTarget){
-          _switchDesktopToTarget(DesktopInitSwitchTarget > DesktopCount ? DesktopCount : DesktopInitSwitchTarget)
-          OutputDebug, [initTarget] DesktopInitSwitchTarget: %DesktopInitSwitchTarget% desktops: %DesktopCount% current: %CurrentDesktop%
+ 	if(j > 0 && DesktopBeforeScriptBoot > 0){
+        _switchDesktopToTarget(DesktopBeforeScriptBoot > DesktopCount ? DesktopCount : DesktopBeforeScriptBoot)
     }
 }
-
 
 _GetCurrentWindowID() {
     WinGet, activeHwnd, ID, A
