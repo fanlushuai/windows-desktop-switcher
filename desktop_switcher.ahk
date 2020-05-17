@@ -275,34 +275,40 @@ _GetCurrentWindowTitle() {
     return activeHwnd
 }
 
+_GetCurrentWindowProcess() {
+    WinGet, ProcessName, ProcessName, A
+    ; MsgBox, %ProcessName%
+    return ProcessName
+}
+
 OnTogglePinOnTopPress() {
-        _notif(_TruncateString(_GetCurrentWindowTitle(), 100), "Toggled 'Pin On Top'")
+        _notif(_GetCurrentWindowProcess(), "Toggled 'Pin On Top'")
 	Winset, Alwaysontop, , A
 }
 
 OnTogglePinWindowPress() {
     windowID := _GetCurrentWindowID()
-    windowTitle := _GetCurrentWindowTitle()
+    processName := _GetCurrentWindowProcess()
     if (_GetIsWindowPinned(windowID)) {
         _UnpinWindow(windowID)
-        _ShowTooltipForUnpinnedWindow(windowTitle)
+        _notif(processName, "Unpinned Window")
     }
     else {
         _PinWindow(windowID)
-        _ShowTooltipForPinnedWindow(windowTitle)
+        _notif(processName, "Pinned Window")
     }
 }
 
 OnTogglePinAppPress() {
     windowID := _GetCurrentWindowID()
-    windowTitle := _GetCurrentWindowTitle()
+    processName := _GetCurrentWindowProcess()
     if (_GetIsAppPinned(windowID)) {
         _UnpinApp(windowID)
-        _ShowTooltipForUnpinnedApp(windowTitle)
+        _notif(processName, "Unpinned App")
     }
     else {
         _PinApp(windowID)
-        _ShowTooltipForPinnedApp(windowTitle)
+        _notif(processName, "Pinned App")
     }
 }
 
@@ -339,6 +345,7 @@ _CallWindowProc(proc, window:="") {
 
 _notif(txt, title:="") {
     HideTrayTip()
+    title := _TruncateString(windowTitle, 100)
     TrayTip, %title%, %txt%, 1 , 16
 }
 
@@ -349,21 +356,6 @@ HideTrayTip() {
         Sleep 200  ; It may be necessary to adjust this sleep.
         Menu Tray, Icon
     }
-}
-_ShowTooltipForPinnedWindow(windowTitle) {
-    _notif(_TruncateString(windowTitle, 100), "Pinned Window")
-}
-
-_ShowTooltipForUnpinnedWindow(windowTitle) {
-    _notif(_TruncateString(windowTitle, 100), "Unpinned Window")
-}
-
-_ShowTooltipForPinnedApp(windowTitle) {
-    _notif(_TruncateString(windowTitle, 100), "Pinned App")
-}
-
-_ShowTooltipForUnpinnedApp(windowTitle) {
-    _notif(_TruncateString(windowTitle, 100), "Unpinned App")
 }
 
 _TruncateString(string:="", n:=10) {

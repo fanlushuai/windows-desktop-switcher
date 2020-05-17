@@ -131,6 +131,9 @@ CapsLock & e::MoveCurrentWindowToDesktop(4)
 ^#l::switchDesktopByNumber(3)
 ^#i::switchDesktopByNumber(4)
 
+; can use this to debug with msgbox
+;^#t::_GetCurrentWindowProcess()
+
 
 
 
