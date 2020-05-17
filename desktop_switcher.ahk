@@ -345,7 +345,7 @@ _CallWindowProc(proc, window:="") {
 
 _notif(txt, title:="") {
     HideTrayTip()
-    title := _TruncateString(windowTitle, 100)
+    title := _TruncateString(title, 100)
     TrayTip, %title%, %txt%, 1 , 16
 }
 
