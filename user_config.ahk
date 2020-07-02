@@ -109,7 +109,7 @@
 ; ^#Numpad3::MoveCurrentWindowToDesktop(3)
 ; ^#Numpad4::MoveCurrentWindowToDesktop(4)
 ; ^#Numpad5::MoveCurrentWindowToDesktop(5)
-; ^#Numpad6::MoveCurrentWindowToDesktop(6)
+; ^#Numpad6::MoveCurrentWindowToDesktop(6)					
 ; ^#Numpad7::MoveCurrentWindowToDesktop(7)
 ; ^#Numpad8::MoveCurrentWindowToDesktop(8)
 ; ^#Numpad9::MoveCurrentWindowToDesktop(9)
@@ -134,6 +134,10 @@ CapsLock & e::MoveCurrentWindowToDesktop(4)
 ; can use this to debug with msgbox
 ;^#t::_GetCurrentWindowProcess()
 
+
+^#b::SendInput, {Volume_Mute}
+^#d::SendInput, {Volume_Down}
+^#u::SendInput, {Volume_Up}
 
 
 
