@@ -9,12 +9,13 @@ DesktopCount := 2        ; Windows starts with 2 desktops at boot
 CurrentDesktop := 1      ; Desktop count is 1-indexed (Microsoft numbers them this way)
 LastOpenedDesktop := 1
 
-DesktopMiniCount := 4   ; keep desktop mini count at script boot.
+DesktopMiniCount := 2   ; keep desktop mini count at script boot.
 DesktopBeforeScriptBoot := -1 ; this param will keep desktop location before script run. desktop mini count will create new desktop while switch to new desktop.
 
 ; desktop associate with background picture
-AutoAssociateBackgroundWithDesktop := false
-BackgroundPicPaths := ["C:\Users\A\Pictures\VDPic\day.jpg", "C:\Users\A\Pictures\VDPic\snow.jpg", "C:\Users\A\Pictures\VDPic\sex.jpg", "C:\Users\A\Pictures\VDPic\cool.jpg"]
+AutoAssociateBackgroundWithDesktop := true
+BackgroundPicPaths := [".\bgPic\1.jpg", ".\bgPic\2.jpg"]
+
 
 ; DLL
 hVirtualDesktopAccessor := DllCall("LoadLibrary", "Str", A_ScriptDir . "\VirtualDesktopAccessor.dll", "Ptr")
@@ -245,9 +246,13 @@ changeBackgroundWithDesktopId()
 {
     global CurrentDesktop, BackgroundPicPaths, AutoAssociateBackgroundWithDesktop
     filePath := BackgroundPicPaths[CurrentDesktop]
+    isRelative := (substr(filePath, 1, 1) == ".")
+    if (isRelative) {
+        filePath := (A_WorkingDir . substr(filePath, 2))
+    }
     if (AutoAssociateBackgroundWithDesktop and filePath and FileExist(filePath)) {
         DllCall("SystemParametersInfo", UInt, 0x14, UInt, 0, Str, filePath, UInt, 1)
-   }
+    }
 }
 
 initDesktopMiniCount()
@@ -355,11 +360,11 @@ HideTrayTip() {
         Menu Tray, NoIcon
         Sleep 200  ; It may be necessary to adjust this sleep.
         Menu Tray, Icon
-    }
+    }	
 }
 
 _TruncateString(string:="", n:=10) {
-    return (StrLen(string) > n ? SubStr(string, 1, n-3) . "..." : string)
+    return (StrLen(string) > n ? SubStr(string, 1, n-3) . "..." : string)	
 }
 
 
@@ -367,3 +372,4 @@ _TruncateString(string:="", n:=10) {
 
 
 
+		
