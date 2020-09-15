@@ -71,3 +71,10 @@ capslock+[sdfe]、capslock+shift+[sdfe]逻辑主要应用在移动窗口和切�
 可以通过
 1. desktop_switcher.ahk:16  AutoAssociateBackgroundWithDesktop 变成true
 2. 配置BackgroundPicPaths,数组的每一位代表了桌面的对应壁纸。
+
+# V2版本
+经过一段时间的使用，4个桌面的数量有点多。至少日常的使用因为过多而有点凌乱。
+现在采用2个桌面的设计。
+通过手势上，手势下。来进行切换。
+按键的话，ctrl——j   ctl+k 进行切换
+将手势的左右，分配给chrome使用。用于chrome 的tab切换。
